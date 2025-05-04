@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Grains - Premium Wheat Flour & Oil Mill</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .flour-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1603569283847-aa6a0c1a4039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .oil-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1603569283847-aa6a0c1a4039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .grain-particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-2 {
+            animation: floating 3.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        
+        .floating-3 {
+            animation: floating 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        .product-card:hover .product-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-overlay {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-amber-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-12 w-auto" src="https://cdn-icons-png.flaticon.com/512/3132/3132773.png" alt="Golden Grains Logo">
+                    <span class="ml-2 text-2xl font-bold text-amber-800">Golden Grains</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="#home" class="text-amber-900 hover:text-amber-700 px-3 py-2 rounded-md text-lg font-medium transition-colors duration-300">Home</a>
+                        <a href="#about" class="text-amber-900 hover:text-amber-700 px-3 py-2 rounded-md text-lg font-medium transition-colors duration-300">About</a>
+                        <a href="#products" class="text-amber-900 hover:text-amber-700 px-3 py-2 rounded-md text-lg font-medium transition-colors duration-300">Products</a>
+                        <a href="#process" class="text-amber-900 hover:text-amber-700 px-3 py-2 rounded-md text-lg font-medium transition-colors duration-300">Process</a>
+                        <a href="#contact" class="text-amber-900 hover:text-amber-700 px-3 py-2 rounded-md text-lg font-medium transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-amber-900 hover:text-amber-700 focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-amber-900 hover:text-amber-700 hover:bg-amber-50">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-amber-900 hover:text-amber-700 hover:bg-amber-50">About</a>
+                <a href="#products" class="block px-3 py-2 rounded-md text-base font-medium text-amber-900 hover:text-amber-700 hover:bg-amber-50">Products</a>
+                <a href="#process" class="block px-3 py-2 rounded-md text-base font-medium text-amber-900 hover:text-amber-700 hover:bg-amber-50">Process</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-amber-900 hover:text-amber-700 hover:bg-amber-50">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6" id="hero-title">Golden Grains</h1>
+            <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto" id="hero-subtitle">Premium quality wheat flour and cooking oils straight from our mill to your kitchen</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#products" class="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors duration-300 transform hover:scale-105">Our Products</a>
+                <a href="#contact" class="px-8 py-3 bg-white hover:bg-gray-100 text-amber-800 font-medium rounded-lg transition-colors duration-300 transform hover:scale-105">Contact Us</a>
+            </div>
+        </div>
+        
+        <!-- Floating wheat icons -->
+        <i class="fas fa-wheat absolute text-amber-200 text-xl opacity-70" style="top: 20%; left: 10%;" id="wheat-1"></i>
+        <i class="fas fa-wheat absolute text-amber-200 text-2xl opacity-70" style="top: 30%; right: 15%;" id="wheat-2"></i>
+        <i class="fas fa-wheat absolute text-amber-200 text-lg opacity-70" style="bottom: 25%; left: 20%;" id="wheat-3"></i>
+        <i class="fas fa-wheat absolute text-amber-200 text-xl opacity-70" style="bottom: 15%; right: 10%;" id="wheat-4"></i>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">Our Heritage</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Three generations of milling excellence since 1952</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1603569283847-aa6a0c1a4039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our Mill" class="rounded-lg shadow-xl w-full h-auto">
+                    <div class="absolute -bottom-6 -right-6 bg-amber-100 p-4 rounded-lg shadow-lg hidden md:block">
+                        <div class="text-amber-900 text-center">
+                            <p class="text-4xl font-bold">70+</p>
+                            <p class="text-lg">Years of Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-amber-800 mb-4">Traditional Methods, Modern Quality</h3>
+                    <p class="text-gray-600 mb-4">At Golden Grains, we combine time-honored milling techniques with state-of-the-art technology to produce the finest wheat flour and cooking oils. Our family has been serving the community with premium quality products for over seven decades.</p>
+                    <p class="text-gray-600 mb-6">We source our wheat and oilseeds directly from local farmers who share our commitment to sustainable agriculture and quality produce. Every grain that enters our mill is carefully selected to meet our rigorous standards.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <div class="bg-amber-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-check text-amber-700"></i>
+                            </div>
+                            <span class="text-gray-700">100% Natural</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-amber-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-check text-amber-700"></i>
+                            </div>
+                            <span class="text-gray-700">No Additives</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-amber-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-check text-amber-700"></i>
+                            </div>
+                            <span class="text-gray-700">Locally Sourced</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-amber-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-check text-amber-700"></i>
+                            </div>
+                            <span class="text-gray-700">Family Owned</span>
+                        </div>
+                    </div>
+                    <a href="#process" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 transition-colors duration-300">
+                        Learn About Our Process
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">Our Premium Products</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Carefully milled and pressed for exceptional quality and taste</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden product-card transition-all duration-300 hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1603569283847-aa6a0c1a4039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Whole Wheat Flour" class="w-full h-full object-cover">
+                        <div class="product-overlay absolute inset-0 bg-amber-800/90 flex flex-col justify-center items-center p-6 text-center text-white">
+                            <h3 class="text-2xl font-bold mb-2">Whole Wheat Flour</h3>
+                            <p class="mb-4">Nutrient-rich flour with all the natural goodness of whole grains</p>
+                            <span class="text-xl font-bold">$4.99/kg</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Whole Wheat Flour</h3>
+                        <p class="text-gray-600 mb-4">Stone-ground from premium wheat berries, retaining all the natural fiber and nutrients.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-amber-700 font-bold">$4.99/kg</span>
+                            <button class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden product-card transition-all duration-300 hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1603569283847-aa6a0c1a4039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="All-Purpose Flour" class="w-full h-full object-cover">
+                        <div class="product-overlay absolute inset-0 bg-amber-800/90 flex flex-col justify-center items-center p-6 text-center text-white">
+                            <h3 class="text-2xl font-bold mb-2">All-Purpose Flour</h3>
+                            <p class="mb-4">Versatile flour perfect for all your baking needs</p>
+                            <span class="text-xl font-bold">$3.99/kg</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">All-Purpose Flour</h3>
+                        <p class="text-gray-600 mb-4">Our finest white flour, perfect for breads, pastries, and all your baking needs.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-amber-700 font-bold">$3.99/kg</span>
+                            <button class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden product-card transition-all duration-300 hover:shadow-xl">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1603569283847-aa6a0c1a4039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cold-Pressed Oil" class="w-full h-full object-cover">
+                        <div class="product-overlay absolute inset-0 bg-amber-800/90 flex flex-col justify-center items-center p-6 text-center text-white">
+                            <h3 class="text-2xl font-bold mb-2">Cold-Pressed Oil</h3>
+                            <p class="mb-4">Pure, unrefined oil with all its natural flavor and nutrients</p>
+                            <span class="text-xl font-bold">$8.99/liter</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-amber-900 mb-2">Cold-Pressed Oil</h3>
+                        <p class="text-gray-600 mb-4">Extracted without heat to preserve nutrients, perfect for dressings and light cooking.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-amber-700 font-bold">$8.99/liter</span>
+                            <button class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors duration-300">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-amber-600 text-base font-medium rounded-md text-amber-700 bg-white hover:bg-amber-50 transition-colors duration-300">
+                    View All Products
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">Our Milling Process</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">From field to flour - preserving quality at every step</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-amber-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-amber-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-tractor text-3xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-800 mb-3">Sourcing</h3>
+                    <p class="text-gray-600">We partner with local farmers who grow premium wheat varieties using sustainable practices.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="bg-amber-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-amber-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-filter text-3xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-800 mb-3">Cleaning</h3>
+                    <p class="text-gray-600">Grains are thoroughly cleaned to remove impurities while preserving nutritional value.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="bg-amber-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-amber-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-cogs text-3xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-800 mb-3">Milling</h3>
+                    <p class="text-gray-600">Our modern mill uses a combination of stone grinding and roller milling for perfect texture.</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="bg-amber-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-amber-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-flask text-3xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-800 mb-3">Testing</h3>
+                    <p class="text-gray-600">Every batch undergoes rigorous quality testing to ensure consistency and safety.</p>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="bg-amber-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-amber-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-box-open text-3xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-800 mb-3">Packaging</h3>
+                    <p class="text-gray-600">Flour is packed in food-grade, moisture-proof packaging to maintain freshness.</p>
+                </div>
+                
+                <!-- Step 6 -->
+                <div class="bg-amber-50 rounded-lg p-8 text-center hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-amber-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-truck text-3xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-amber-800 mb-3">Delivery</h3>
+                    <p class="text-gray-600">Fresh products delivered to stores and directly to customers within days of milling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-amber-900 mb-4">What Our Customers Say</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mb-6"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl">★</div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"The whole wheat flour from Golden Grains has transformed my baking. The flavor and texture are unmatched by any commercial brand I've tried."</p>
+                    <div class="flex items-center">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson">
+                        <div>
+                            <h4 class="font-bold text-amber-800">Sarah Johnson</h4>
+                            <p class="text-gray-500 text-sm">Professional Baker</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl">★</div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"As a restaurant owner, consistency is key. Golden Grains has never let me down - their flour performs perfectly every time."</p>
+                    <div class="flex items-center">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                        <div>
+                            <h4 class="font-bold text-amber-800">Michael Chen</h4>
+                            <p class="text-gray-500 text-sm">Restaurant Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl mr-2">★</div>
+                        <div class="text-amber-500 text-2xl">★</div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"I can taste the difference in their cold-pressed oil. It's become a staple in my kitchen for both cooking and dressings."</p>
+                    <div class="flex items-center">
+                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Elena Rodriguez">
+                        <div>
+                            <h4 class="font-bold text-amber-800">Elena Rodriguez</h4>
+                            <p class="text-gray-500 text-sm">Home Cook</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-amber-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Get In Touch</h2>
+                    <p class="text-amber-100 mb-8">Have questions about our products or want to place an order? Reach out to us - we'd love to hear from you!</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-amber-700 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Our Mill</h4>
+                                <p class="text-amber-100">123 Grain Valley Road<br>Farmington, CA 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-amber-700 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Call Us</h4>
+                                <p class="text-amber-100">(555) 123-4567<br>Mon-Fri: 8am-5pm</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-amber-700 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Email Us</h4>
+                                <p class="text-amber-100">info@goldengrains.com<br>orders@goldengrains.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-amber-700 hover:bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-amber-700 hover:bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-amber-700 hover:bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-xl p-8 text-gray-800">
+                    <h3 class="text-2xl font-bold text-amber-800 mb-6">Send Us a Message</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition">
+                        </div>
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors duration-300">
+                            Send Message
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <img class="h-12 w-auto mb-4" src="https://cdn-icons-png.flaticon.com/512/3132/3132773.png" alt="Golden Grains Logo">
+                    <p class="text-amber-200 mb-4">Premium quality wheat flour and cooking oils from our family to yours.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-amber-200 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="#about" class="text-amber-200 hover:text-white transition-colors duration-300">About Us</a></li>
+                        <li><a href="#products" class="text-amber-200 hover:text-white transition-colors duration-300">Products</a></li>
+                        <li><a href="#process" class="text-amber-200 hover:text-white transition-colors duration-300">Our Process</a></li>
+                        <li><a href="#contact" class="text-amber-200 hover:text-white transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Products</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">Whole Wheat Flour</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">All-Purpose Flour</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">Bread Flour</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">Cold-Pressed Oil</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition-colors duration-300">Specialty Flours</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-amber-200 mb-4">Subscribe to get updates on new products and special offers.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg text-gray-800 w-full outline-none">
+                        <button type="submit" class="bg-amber-600 hover:bg-amber-700 px-4 py-2 rounded-r-lg transition-colors duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-amber-800 mt-12 pt-8 text-center text-amber-200">
+                <p>&copy; 2023 Golden Grains Flour & Oil Mill. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-amber-600 hover:bg-amber-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Hero section animations
+        gsap.from("#hero-title", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            ease: "power3.out"
+        });
+        
+        gsap.from("#hero-subtitle", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            delay: 0.3,
+            ease: "power3.out"
+        });
+        
+        gsap.from("#wheat-1", {
+            duration: 2,
+            x: -50,
+            y: -50,
+            opacity: 0,
+            delay: 0.5,
+            ease: "elastic.out(1, 0.5)"
+        });
+        
+        gsap.from("#wheat-2", {
+            duration: 2,
+            x: 50,
+            y: -50,
+            opacity: 0,
+            delay: 0.7,
+            ease: "elastic.out(1, 0.5)"
+        });
+        
+        gsap.from("#wheat-3", {
+            duration: 2,
+            x: -50,
+            y: 50,
+            opacity: 0,
+            delay: 0.9,
+            ease: "elastic.out(1, 0.5)"
+        });
+        
+        gsap.from("#wheat-4", {
+            duration: 2,
+            x: 50,
+            y: 50,
+            opacity: 0,
+            delay: 1.1,
+            ease: "elastic.out(1, 0.5)"
+        });
+        
+        // Section animations
+        gsap.utils.toArray("section").forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+        
+        // Floating wheat animation
+        const wheatElements = document.querySelectorAll('.fa-wheat');
+        wheatElements.forEach((wheat, index) => {
+            gsap.to(wheat, {
+                y: 20,
+                duration: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: index * 0.3
+            });
+        });
+        
+        // Product card hover animation
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    y: -10,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    y: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+        
+        // Grain particle effect
+        function createGrainParticles() {
+            const colors = ['#fbbf24', '#f59e0b', '#d97706', '#92400e'];
+            const container = document.querySelector('.hero-bg');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('grain-particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 3;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const opacity = Math.random() * 0.5 + 0.3;
+                const duration = Math.random() * 10 + 5;
+                const delay = Math.random() * 5;
+                
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.backgroundColor = color;
+                particle.style.opacity = opacity;
+                
+                container.appendChild(particle);
+                
+                // Animate
+                gsap.to(particle, {
+                    x: `+=${(Math.random() - 0.5) * 100}`,
+                    y: `+=${(Math.random() - 0.5) * 100}`,
+                    duration: duration,
+                    delay: delay,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            }
+        }
+        
+        // Create particles after page loads
+        window.addEventListener('load', createGrainParticles);
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=THEAIBRO/pavitra" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
